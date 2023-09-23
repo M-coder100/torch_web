@@ -1,0 +1,79 @@
+nav.primarySideNav {
+    background: #000000bf;
+    color: #fff;
+    padding: 15px;
+    border-left: 1px solid #ffffff2f;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: absolute;
+    height: 100vh;
+    left: 80px;
+    transform: translateX(-378px);
+    transition: transform .25s ease;
+    z-index: 12;
+
+    .inputPlaceholder {
+        padding: 10px;
+        color: #ccc;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid #ffffff2f;
+        border-radius: 10px;
+        
+        &:hover {
+            color: #fff;
+        }
+        input {
+            all: unset;
+        }
+        svg {
+            color: inherit;
+        }
+    }
+    button {
+        border-radius: 10px;
+        padding: 10px;
+        font-size: initial;
+        color: inherit;
+        font-weight: 600;
+        background: linear-gradient(0.25turn, #0085FF, #6800CF);
+        display: flex;
+        gap: 8px;    
+        align-items: center;
+        cursor: pointer;
+        border: 2px solid white;
+
+        svg {
+            font-size: larger;
+        }
+        &:hover {
+            filter: brightness(120%);
+        }
+    }
+    .toggleSideNavBtn {
+        position: absolute;
+        background: #ffffffaf;
+        cursor: pointer;
+        color: #000;
+        border-radius: 10px;
+        display: flex;
+        padding: 10px;
+        right: -100px;
+        top: calc(50% - 18px);
+        
+        &:hover {
+            background-color: #fff;
+        }
+    }
+    &.active {
+        position: relative;
+        left: initial;
+        transform: translateX(0);
+        z-index: 12;
+        .toggleSideNavBtn {
+            right: -18px;       
+        }
+    }
+}

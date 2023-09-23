@@ -42,9 +42,11 @@ export const NavLink = styled(Link)`
 	margin: 5px 15px 5px 15px;
 	transition: background .5s ease;
 	
+	&:hover {
+		border: 1px dashed #ffffff2f;
+	}
 	&.active {
 		background: #293FFF;
-
 	}
 `;
 

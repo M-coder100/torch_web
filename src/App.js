@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import './index.css';
 import Navbar from './components/Navbar';
-// import PrimarySideNav from './components/PrimarySideNav';
+import PrimarySideNav from './components/PrimarySideNav';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './pages';
 import Home from './pages/home';
@@ -12,12 +12,20 @@ import Settings from './pages/settings';
 import Account from './pages/account';
 
 function App() {
+	// react hooks magic 🪄
+	const [isSideNavOpen, setIsSideNavOpen] = useState(true);
+
+	function toggleSideNav() {
+		setIsSideNavOpen(!isSideNavOpen);
+	}
+	
 	return (
 		<Router>
 			<Navbar />
-			{/* <Routes>
-				<Route path='/work' element={<PrimarySideNav />} />
-			</Routes> */}
+			<Routes>
+				{/* use a function as a argument. This function gets executed when toggleSideNavBtn gets clicked */}
+				<Route path='/work' element={<PrimarySideNav toggleSideNavBtnPressed={() => toggleSideNav} open={isSideNavOpen}/>} />
+			</Routes>
 			<Routes>
 				<Route path='/' exact element={<Dashboard />} />
 				<Route path='/home' element={<Home />} />
