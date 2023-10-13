@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
 
 * {
   margin: 0;
@@ -19,10 +20,11 @@ body {
   color: #fff;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
 #root {
   display: flex;
+  --border: rgba(255, 255, 255, 0.2);
+  --backdropBg: #000000bf;
+}
+.sherif {
+  font-family: 'DM Serif Display', serif;
 }

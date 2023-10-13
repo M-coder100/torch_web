@@ -1,8 +1,8 @@
 nav.primarySideNav {
-    background: #000000bf;
+    background: var(--backdropBg);
     color: #fff;
     padding: 15px;
-    border-left: 1px solid #ffffff2f;
+    border-left: 1px solid var(--border);
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -12,14 +12,15 @@ nav.primarySideNav {
     transform: translateX(-378px);
     transition: transform .25s ease;
     z-index: 12;
+    width: 300px;
 
-    .inputPlaceholder {
+    .noteCollectionInputPlaceholder {
         padding: 10px;
         color: #ccc;
         display: flex;
         align-items: center;
         gap: 10px;
-        border: 1px solid #ffffff2f;
+        border: 1px solid var(--border);
         border-radius: 10px;
         
         &:hover {
@@ -43,13 +44,24 @@ nav.primarySideNav {
         gap: 8px;    
         align-items: center;
         cursor: pointer;
-        border: 2px solid white;
+        border: 1px solid var(--border);
 
         svg {
             font-size: larger;
         }
         &:hover {
             filter: brightness(120%);
+        }
+    }
+    .noteCollectionInfo {
+        color: #ffffffaf;
+        display: flex;   
+        justify-content: space-between;
+        padding-inline: 5px;
+
+        .noteCollectionFilter {
+            color: #40A4FF;
+            cursor: pointer;
         }
     }
     .toggleSideNavBtn {
@@ -59,12 +71,45 @@ nav.primarySideNav {
         color: #000;
         border-radius: 10px;
         display: flex;
-        padding: 10px;
-        right: -100px;
+        padding: 10px 5px;
+        right: -90px;
         top: calc(50% - 18px);
         
         &:hover {
             background-color: #fff;
+        }
+    }
+    .noteCollectionNotes {
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding-inline: 10px;
+        
+        .noteCollectionNote {
+            padding: 15px;
+            background-color: rgba(204, 204, 204, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            position: relative;
+
+            h3 {
+                text-transform: capitalize;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            
+            svg {
+                color: orange;
+            }
+            &:hover {
+                background-color: rgba(204, 204, 204, 0.12);
+            }
+            &.active {
+                background: rgba(204, 204, 204, 0.18);
+            }
         }
     }
     &.active {
@@ -73,7 +118,7 @@ nav.primarySideNav {
         transform: translateX(0);
         z-index: 12;
         .toggleSideNavBtn {
-            right: -18px;       
+            right: -14px;       
         }
     }
 }

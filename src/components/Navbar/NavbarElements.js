@@ -14,7 +14,7 @@ import React from 'react';
 // Logo
 
 function Logo() {
-	return <img src={logo} height={50} width={50}
+	return <img src={logo} height={50} width={50} alt='Torch'
 		style={{
 			margin: "20px 15px 5px 15px",
 		}}
@@ -23,7 +23,7 @@ function Logo() {
 export { Logo }
 
 export const Nav = styled.nav`
-background: rgba(0, 0, 0, .75);
+background: var(--backdropBg);
 height: 100vh;
 display: flex;
 flex-direction: column;
