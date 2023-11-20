@@ -22,7 +22,7 @@ function PrimarySideNav({toggleSideNavBtnPressed, open}) {
 				<SideNavTask title="PSA 12  9729172" dateTime="Mon, July 18, 2023" starred color="#5200FF"/>
 				<SideNavTask title="Office friend party invitation" dateTime="Mon, July 18, 2023" color="#00FF38"/>
 			</div>
-			<div className={"toggleSideNavBtn"} onClick={toggleSideNavBtnPressed()}>
+			<div className={"toggleSideNavBtn"} onClick={toggleSideNavBtnPressed}>
 				{open ? <IoChevronBack /> : <IoChevronForward />} 
 			</div>
 		</nav>

@@ -18,15 +18,15 @@ function App() {
 	function toggleSideNav() {
 		setIsSideNavOpen(!isSideNavOpen);
 	}
-	
+
 	return (
 		<Router>
 			<Navbar />
 			<Routes>
-				{/* use a function as a argument. This function gets executed when toggleSideNavBtn gets clicked */}
-				<Route path='/work' element={<PrimarySideNav toggleSideNavBtnPressed={() => toggleSideNav} open={isSideNavOpen}/>} />
-			</Routes>
-			<Routes>
+				<Route path='/work' element={<>
+					<PrimarySideNav toggleSideNavBtnPressed={toggleSideNav} open={isSideNavOpen} />
+					<Work />
+				</>} />
 				<Route path='/' exact element={<Dashboard />} />
 				<Route path='/home' element={<Home />} />
 				<Route path='/work' element={<Work />} />

@@ -1,0 +1,117 @@
+.editor {
+  width: calc(100vw - 80px);
+  padding: 50px 30px;
+  background: var(--backdropBg);
+  /* background: linear-gradient(to top right, red, blue); */
+  border-left: 1px solid var(--border);
+  height: 100vh;
+  display: flex;
+  gap: 20px;
+  overflow: auto;
+  flex-direction: column;
+  -webkit-user-select: none;
+  user-select: none;
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'DM Serif Display', serif;
+    text-transform: capitalize;
+  }
+}
+.options {
+  display: flex;
+   flex-wrap: wrap;
+  align-items: center;
+  gap: 15px;
+
+  & *:disabled {
+    cursor: not-allowed;
+    background: var(--border);
+  }
+}
+button {
+  height: 28px;
+  width: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 3px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  &:active {
+    background-color: #0048ff;
+    color: white;
+  }
+}
+select {
+  padding: 7px;
+  border: 1px solid #020929;
+  border-radius: 3px;
+}
+li {
+  margin: 10px 0;
+}
+ol, ul {
+  margin-left: 30px;
+}
+a {
+  color: #608dff;
+}
+li::marker {
+  color: #bbb;
+}
+.options label,
+.options select {
+  font-family: "Poppins", sans-serif;
+}
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  label {
+    color: #020929;
+    cursor: pointer;
+    position: absolute;  
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+input[type="color"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  width: 35px;
+  height: 35px;
+  border: none;
+}
+input[type="color"]::-webkit-color-swatch {
+  border-radius: 15px;
+}
+input[type="color"]::-moz-color-swatch {
+  border-radius: 15px;
+  border: 2px solid;
+}
+#text-input {
+  height: 100%;
+  overflow-x: auto;
+  display: inline-block;
+  outline: none; 
+  span.backColor {
+    border-radius: 3px;
+    padding-inline: 5px;
+    margin-inline: 5px;
+  }
+}
+.active {
+  background-color: #0048ff;
+}
+hr:not(hr.horizontal) {
+  height: 20px;
+}
+blockquote {
+  padding-left: 20px;
+}
+#text-input div:empty::after {
+  content: "\00a0 ";
+}

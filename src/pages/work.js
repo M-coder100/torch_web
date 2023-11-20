@@ -1,18 +1,10 @@
 import React from 'react';
+import Editor from '../components/Editor';
 
 const Work = () => {
+	const dbID = "2x52q7e4121";
 	return (
-		<div
-			style={{
-				display: 'flex',
-				justifyContent: 'center',
-				alignItems: 'center',
-				height: '100vh',
-				width: '100vw'
-			}}
-		>
-			<h1>Work</h1>
-		</div>
+		<Editor dbID={dbID}/>
 	);
 };
 
