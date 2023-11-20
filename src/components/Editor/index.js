@@ -3,35 +3,16 @@ import './Editor.css';
 import '../../fonts/fontawesome-free-6.4.2-web/css/all.min.css';
 
 function Editor({ dbID }) {
-	console.count("Run count");
 
-	let optionsButtons;
-	let advancedOptionButton;
 	let fontSizeRef;
-	let fontName;
-	let linkButton;
-	let alignButtons;
-	let spacingButtons;
-	let formatButtons;
-	let scriptButtons;
-
 	let allButtons;
 
 	const writingAreaRef = useRef(null);
 	const [fontNameOptions, setFontNameOptions] = useState([]);
 
-	// Initial Settings
+	// Initial Settings 
 	function initialize() {
-		optionsButtons = document.querySelectorAll('.option-button');
-		advancedOptionButton = document.querySelectorAll('.adv-option-button');
 		fontSizeRef = document.getElementById('fontSize');
-		fontName = document.getElementById('fontName');
-		linkButton = document.getElementById('createLink');
-		alignButtons = document.querySelectorAll('.align');
-		spacingButtons = document.querySelectorAll('.spacing');
-		formatButtons = document.querySelectorAll('.format');
-		scriptButtons = document.querySelectorAll('.script');
-
 		allButtons = Array.from(document.querySelector('.options').children).filter(element => element.tagName !== 'HR');
 		writingAreaRef.current = document.getElementById("text-input");
 
@@ -96,7 +77,6 @@ function Editor({ dbID }) {
 	const modifyText = useMemo(() => (event, input = null) => {
 		const commandName = event.target.id; // the element's id is a command itself
 		const selection = window.getSelection();
-		console.log(event.target.value);
 		// Check if any text is selected and commandName = createLink
 		if (commandName === "createLink" && selection.type === "Caret" && input) {
 			// If no text is selected, use the input as both href and text content
@@ -208,11 +188,11 @@ function Editor({ dbID }) {
 				{/* <!-- Color --> */}
 				<div className="input-wrapper">
 					<input type="color" id="foreColor" className="adv-option-button" onInput={modifyText} value="#ffffff"/>
-					<label htmlFor="foreColor"><i class="fa-solid fa-font"></i></label>
+					<label htmlFor="foreColor"><i className="fa-solid fa-font"></i></label>
 				</div>
 				<div className="input-wrapper">
 					<input type="color" id="backColor" className="adv-option-button" onInput={modifyText} value="#eff57a"/>
-					<label htmlFor="backColor"><i class="fa-solid fa-highlighter"></i></label>
+					<label htmlFor="backColor"><i className="fa-solid fa-highlighter"></i></label>
 				</div>
 				<hr />
 				<button id="removeFormat" className="option-button fa-solid fa-text-slash" onClick={modifyText}></button>
