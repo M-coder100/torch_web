@@ -1,8 +1,39 @@
+.getStarted_Container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  
+  button {
+    border-radius: 10px;
+    margin: 20px;
+    padding: 20px 10px;
+    width: fit-content;
+    font-size: initial;
+    color: inherit;
+    font-weight: 600;
+    background: linear-gradient(0.25turn, #0085FF, #6800CF);
+    display: flex;
+    gap: 8px;    
+    align-items: center;
+    cursor: pointer;
+    border: 1px solid var(--border);
+
+    svg {
+        font-size: larger;
+    }
+    &:hover {
+        filter: brightness(120%);
+    }
+  }
+}
+
 .editor {
   width: calc(100vw - 80px);
   padding: 50px 30px;
   background: var(--backdropBg);
-  /* background: linear-gradient(to top right, red, blue); */
+  /* background: linear-gradient(to top right, #ff00001e, #0000ff15); */
   border-left: 1px solid var(--border);
   height: 100vh;
   display: flex;
@@ -11,6 +42,7 @@
   flex-direction: column;
   -webkit-user-select: none;
   user-select: none;
+  backdrop-filter: blur(10px);
   h1, h2, h3, h4, h5, h6 {
     font-family: 'DM Serif Display', serif;
     text-transform: capitalize;
@@ -114,4 +146,38 @@ blockquote {
 }
 #text-input div:empty::after {
   content: "\00a0 ";
+}
+#text-input:empty::after {
+  content: "Type Your Main Content Here...";
+  cursor: text;
+  color: #bbb;
+}
+.editor.unsaved #header::before {
+  content: "\2022";
+  position: absolute;
+  right: 45px;
+  top: 50px;
+}
+#header:empty::after {
+  content: "Untitled";
+  cursor: text;
+}
+#header:empty:focus::after {
+  background: #0084ff;
+}
+#description:empty {
+  height: 0;
+  margin-bottom: 30px;
+}
+#description:focus {
+  margin-bottom: 0;
+  height: min-content;
+}
+#description:empty:not(:focus)::after {
+  content: "Click To Add Description";
+  position: relative;
+  background: var(--backdropBg);
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
 }

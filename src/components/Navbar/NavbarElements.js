@@ -1,7 +1,7 @@
-import { IoGrid, IoHome, IoBriefcase, IoSchool, IoSettingsOutline, IoAccessibilityOutline } from 'react-icons/io5';
+import { IoGrid, IoSettingsOutline, IoAccessibilityOutline, IoAddCircle } from 'react-icons/io5';
 import { NavLink as Link } from 'react-router-dom';
 import styled from 'styled-components';
-import logo from '../../torch.png';
+import logo from '../../imgs/torch.png';
 import React from 'react';
 
 // Nav
@@ -20,15 +20,15 @@ function Logo() {
 		}}
 	/>;
 }
-export { Logo }
 
 export const Nav = styled.nav`
-background: var(--backdropBg);
-height: 100vh;
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-z-index: 12;
+	background: var(--backdropBg);
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	z-index: 12;
+	backdrop-filter: blur(10px);
 `;
 
 export const NavLink = styled(Link)`
@@ -61,11 +61,21 @@ export const NavDevider = styled.div`
 	background: #fff;
 	filter: opacity(.2);
 	margin: 10px 0 10px 0px;
+	`
+	export const AddButtonContainer = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	// font-size: larger;
+	background: #000;
+	margin: 15px;
+	border-radius: 100px;
+	border: 5px inset #293FFF;
 `
 
 
-
-const [DashboardIcon, HomeIcon, WorkIcon, SchoolIcon, SettingsIcon, AccountIcon] = [IoGrid, IoHome, IoBriefcase, IoSchool, IoSettingsOutline, IoAccessibilityOutline];
+const [DashboardIcon, SettingsIcon, AccountIcon, AddIcon] = [IoGrid, IoSettingsOutline, IoAccessibilityOutline, IoAddCircle];
 
 const styleIcon = (Component) => {
 	const StyledComponent = (props) => {
@@ -81,4 +91,4 @@ const styleIcon = (Component) => {
 	return StyledComponent;
 };
 
-export { styleIcon, DashboardIcon, HomeIcon, WorkIcon, SchoolIcon, SettingsIcon, AccountIcon }
+export { Logo, styleIcon, DashboardIcon, SettingsIcon, AccountIcon, AddIcon }

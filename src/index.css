@@ -12,7 +12,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   
-  background: url(bg.png) no-repeat center center fixed;
+  background: url(imgs/bg2.png) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -23,7 +23,7 @@ body {
 #root {
   display: flex;
   --border: rgba(255, 255, 255, 0.2);
-  --backdropBg: #000000bf;
+  --backdropBg: #00000057;
 }
 .sherif {
   font-family: 'DM Serif Display', serif;

@@ -1,20 +1,31 @@
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import './Editor.css';
 import '../../fonts/fontawesome-free-6.4.2-web/css/all.min.css';
+import { useParams } from 'react-router-dom';
+import Database from '../../db.js';
+import { IoAddCircle } from 'react-icons/io5';
+const db = new Database("db");
 
-function Editor({ dbID }) {
-
+const Editor = () => {
+	
 	let fontSizeRef;
 	let allButtons;
 
+	const headingRef = useRef(null);
+	const descriptionRef = useRef(null);
 	const writingAreaRef = useRef(null);
 	const [fontNameOptions, setFontNameOptions] = useState([]);
-
+	const { collectionIndex, noteIndex } = useParams();
+	const autoSaveDelay = 1000;
+	
 	// Initial Settings 
 	function initialize() {
 		fontSizeRef = document.getElementById('fontSize');
 		allButtons = Array.from(document.querySelector('.options').children).filter(element => element.tagName !== 'HR');
-		writingAreaRef.current = document.getElementById("text-input");
+		
+		headingRef.current.innerHTML = currNote.heading;
+		writingAreaRef.current.innerHTML = currNote.noteData;
+		descriptionRef.current.innerHTML = currNote.description;
 
 		// List of fontlist
 		let fontList = [
@@ -41,6 +52,7 @@ function Editor({ dbID }) {
 
 	function diableOptionsBasedOnTextareaType(event) {
 		const elm = event.target;
+		if (elm.tagName == "SELECT") return;
 
 		// check if the focus is only on the contentEditable textareas
 		if (elm.tagName !== 'BUTTON' && elm.tagName !== 'A') {
@@ -48,14 +60,17 @@ function Editor({ dbID }) {
 				case 'full': // full control over the features (eg: editor)
 					allButtons.forEach(opt => enable(opt));
 					break;
-
-				case 'inlineOnly': // (eg: description)
+					
+					case 'inlineOnly': // (eg: description)
 					allButtons.forEach(opt => (opt.classList.contains('inlineDisabled') ? disable(opt) : enable(opt)));
 					break;
 
 				default:
-					// if returns null then all options will be disabled (eg: heading)
-					allButtons.forEach(opt => disable(opt));
+					// if returns null then all options will be disabled (eg: heading) except removeFormat Button
+					allButtons.forEach(opt => {
+						if (opt.id == "removeFormat") return;
+						disable(opt);
+					});
 					break;
 			}
 		}
@@ -72,7 +87,7 @@ function Editor({ dbID }) {
 	}
 	function disable(option) { option.disabled = true };
 	function enable(option) { option.disabled = false };
-
+	
 	// main logic
 	const modifyText = useMemo(() => (event, input = null) => {
 		const commandName = event.target.id; // the element's id is a command itself
@@ -84,7 +99,7 @@ function Editor({ dbID }) {
 			newLink.href = input;
 			newLink.spellcheck = false;
 			newLink.textContent = input;
-
+			
 			// Insert the new link at the current selection
 			const range = selection.getRangeAt(0);
 			range.deleteContents();
@@ -92,22 +107,23 @@ function Editor({ dbID }) {
 			return;
 		} 
 		
-		if (commandName === 'indent') { // for indentation
-			let childElements = writingAreaRef.current.children;
-			if (childElements[childElements.length - 1].tagName === 'BLOCKQUOTE' && writingAreaRef.current) {
-				writingAreaRef.current.innerHTML += '<div></div>';
-			}
-			return;
-		}
-		writingAreaRef.current.focus();
 		document.execCommand('styleWithCSS', false, true);	
 		document.execCommand(commandName, false, input || event?.target?.value); // execCommand executes command on selected text
-	}, [])
 
+		if (commandName === 'indent' && writingAreaRef) { // for indentation
+			let childElements = writingAreaRef.current.children;
+			
+			if (childElements[childElements.length - 1].tagName === 'DIV' && writingAreaRef.current) {
+				writingAreaRef.current.innerHTML += '<div></div>';
+			}
+		}
+	})
+
+	const currNote = db.getCollectionData(collectionIndex)?.notes[noteIndex||db.getCollectionData(collectionIndex)?.lastNoteIndex];
 	useEffect(() => {
-
+		if (!currNote) return;
 		initialize();
-
+		
 		const handleMouseOver = (e) => {
 			// initially the anchor link element will be unclickable as its parent {writingArea.contentEditable = true}
 			// so when the mouse is hovering the anchor element then the {writingArea.contentEditable = false} so that
@@ -119,20 +135,48 @@ function Editor({ dbID }) {
 
 		document.body.addEventListener('focusin', diableOptionsBasedOnTextareaType);
 		writingAreaRef.current.addEventListener("mouseover", handleMouseOver);
-
-		return () => {
-			document.body.removeEventListener('focusin', diableOptionsBasedOnTextareaType);
-			writingAreaRef.current.removeEventListener("mouseover", handleMouseOver);
-		};
-	}, []);
-
+		
+	}, [currNote]);
+	
+	const is404 = (db.data[collectionIndex]?.notes.some(note => note.noteIndex == noteIndex) || !db.data.some(collection => collection.collectionIndex == collectionIndex));
+	if (!currNote) {
+		if (is404) {
+			return (
+				<div className='getStarted_Container'>
+					<h1>404</h1>
+					<p>You May Have Entered A White Hole</p>
+					<a href='/'>Go To My Dashboard</a>
+				</div>
+			)
+		}
+		function newNote(collectionIndex) {
+			db.createNewNote(collectionIndex);
+			db.save();
+			window.location.assign(`/collection/${collectionIndex}/${db.getCollectionData(collectionIndex).notes.length-1}`);
+		}
+		if (db.data[collectionIndex]?.notes[0] && !noteIndex) {
+			return (
+				<div className='getStarted_Container'>
+					<h1>Open A Note To Start Editing</h1>
+					<p>Click on any note in the Navigation Pane to open it.</p>
+					<button onClick={() => newNote(collectionIndex)}><IoAddCircle /> New Note</button>
+				</div>
+			)
+		}
+		return (
+			<div className='getStarted_Container'>
+				<h1>Nothing Here...</h1>
+				<p>Start By Creating Your First Note</p>
+				<button onClick={() => newNote(collectionIndex)}><IoAddCircle /> New Note</button>
+			</div>
+		)
+	} 
+	let intervalID;
+	
 	return (
-		<div className="editor">
-			<h1 className="sherif" contentEditable>
-				New Product Launch
-			</h1>
-			<p contentEditable eenabled="inlineOnly">Introducing our latest innovation, the "Conduent CTM pro" – a revolutionary addition to the world of technology.</p>
-
+		<div className="editor" key={noteIndex}>
+			<h1 ref={headingRef} className="sherif" contentEditable suppressContentEditableWarning={true} id="header" onInput={event => autoSave(event.target.innerHTML, autoSaveDelay, "heading", noteIndex)}></h1>
+			<p ref={descriptionRef} contentEditable suppressContentEditableWarning={true} eenabled="inlineOnly" id="description" onInput={event => autoSave(event.target.innerHTML, autoSaveDelay, "description")}></p>
 			<div className="options">
 				{/* <!-- Text Format --> */}
 				<button id="bold" className="option-button format fa-solid fa-bold" onClick={modifyText}></button>
@@ -198,9 +242,30 @@ function Editor({ dbID }) {
 				<button id="removeFormat" className="option-button fa-solid fa-text-slash" onClick={modifyText}></button>
 			</div>
 			<hr className='horizontal' />
-			<div id="text-input" contentEditable eenabled="full" autoFocus={true}></div>
+			<div ref={writingAreaRef} id="text-input" contentEditable suppressContentEditableWarning={true} eenabled="full" autoFocus={true} onInput={event => autoSave(event.target.innerHTML, autoSaveDelay, "noteData")}></div>
 		</div>
 	);
+	function autoSave(value, delayms, pointer, index = noteIndex || db.data[collectionIndex].lastNoteIndex) {
+		db.data[collectionIndex].notes[index][pointer] = value == "<br>" ? "" : value;
+		document.querySelector(".editor").classList.add("unsaved");
+
+		if (intervalID) {
+			clearInterval(intervalID);
+		}
+		intervalID = setTimeout(() => {
+			// if (pointer == "heading") {
+			// 	let notes = [...document.querySelectorAll(".noteCollectionNote")]; 
+			// 	notes.forEach(note => {
+			// 		if (note.classList.contains("active") || notes.indexOf(note) == index) {
+			// 			note.querySelector(".sherif").innerHTML = value;
+			// 		}
+			// 	})
+			// }
+			document.querySelector(".editor").classList.remove("unsaved");
+			db.data[collectionIndex].lastNoteIndex = index;
+			db.save();
+		}, delayms)
+	}
 };
 
 export default Editor;

@@ -13,6 +13,7 @@ nav.primarySideNav {
     transition: transform .25s ease;
     z-index: 12;
     width: 300px;
+    backdrop-filter: blur(10px);
 
     .noteCollectionInputPlaceholder {
         padding: 10px;
@@ -73,7 +74,7 @@ nav.primarySideNav {
         border-radius: 10px;
         display: flex;
         padding: 10px 5px;
-        right: -90px;
+        right: -95px;
         top: calc(50% - 18px);
         
         &:hover {
@@ -102,14 +103,22 @@ nav.primarySideNav {
                 text-overflow: ellipsis;
             }
             
-            svg {
+            svg.star {
                 color: orange;
+            }
+            svg.check {
+                color: #00fb00;
             }
             &:hover {
                 background-color: rgba(204, 204, 204, 0.12);
             }
             &.active {
                 background: rgba(204, 204, 204, 0.18);
+            }
+            &.selected {
+                outline: 2px dashed #ccc;
+                background: #fff;
+                color: #000;
             }
         }
     }

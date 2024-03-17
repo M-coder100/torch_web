@@ -4,4 +4,34 @@
     align-items: center;
     width: 100vw;
     justify-content: center;
+    button {
+        border-radius: 10px;
+        margin-top: 20px;
+        padding: 20px 10px;
+        font-size: initial;
+        color: inherit;
+        font-weight: 600;
+        background: linear-gradient(0.25turn, #0085FF, #6800CF);
+        display: flex;
+        gap: 8px;    
+        align-items: center;
+        cursor: pointer;
+        border: 1px solid var(--border);
+        width: fit-content;
+    
+        svg {
+            font-size: larger;
+        }
+        &:hover {
+            filter: brightness(120%);
+        }
+    }
+    .getStarted {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+    }
+    .getStarted.show {
+        display: flex;
+    }
 }

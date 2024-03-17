@@ -1,0 +1,96 @@
+.popup-content {
+	margin: auto;
+	background: url(../../imgs/bg2.png);
+	width: 35%;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #000;
+}
+.popup-content .modal {
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    padding: 20px;
+}
+.popup-content input {
+    width: 100%;
+    margin-block: 20px;
+    background: none;
+    padding: 15px 20px;
+    color: inherit;
+    font-size: large;
+    border-radius: 10px;
+    border: 1px solid #fff;
+}
+.popup-content .iconList {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    max-height: 180px;
+    overflow: auto;
+}
+.popup-content .iconList div {
+    border-radius: 10px;
+    border: 2px dashed #ffffff2f;
+    cursor: pointer;
+}
+.popup-content .iconList svg {
+    padding: 10px;
+    display: flex;
+    height: 50px;
+    width: 50px;
+    border-radius: 10px;
+}
+.popup-content .iconList div:hover {
+    background: #000;
+}
+.popup-content .iconList .active {
+    background: #267FFF !important;
+}
+
+[role=tooltip].popup-content {
+	width: 200px;
+	box-shadow: 0 0 3px rgba(0, 0, 0, .16);
+	border-radius: 5px;
+}
+
+.popup-overlay {
+	background: rgba(0, 0, 0, .5);
+}
+
+[data-popup=tooltip].popup-overlay {
+	background: transparent;
+}
+
+.popup-arrow {
+	-webkit-filter: drop-shadow(0 -3px 3px rgba(0, 0, 0, .16));
+	filter: drop-shadow(0 -3px 3px rgba(0, 0, 0, .16));
+	color: #fff;
+	stroke-width: 2px;
+	stroke: #d7d7d7;
+	stroke-dasharray: 30px;
+	stroke-dashoffset: -54px;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0
+}
+
+.footer {
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-between;
+}
+.footer button {
+    width: fit-content;
+    background: none;
+    color: #fff;
+    padding: 10px 40px;
+    border-radius: 10px;
+    height: fit-content;
+    border: 1px solid #267FFF;
+    font-weight: bold;
+    font-size: large;
+}
+.footer button.preferable {
+    background: linear-gradient(0.25turn, #0085FF, #6800CF);
+}
