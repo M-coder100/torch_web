@@ -10,6 +10,7 @@ const Editor = () => {
 	
 	let fontSizeRef;
 	let allButtons;
+	let intervalID;
 
 	const headingRef = useRef(null);
 	const descriptionRef = useRef(null);
@@ -171,10 +172,9 @@ const Editor = () => {
 			</div>
 		)
 	} 
-	let intervalID;
 	
 	return (
-		<div className="editor" key={noteIndex}>
+		<div className="editor" key={noteIndex || db.data[collectionIndex].lastNoteIndex}>
 			<h1 ref={headingRef} className="sherif" contentEditable suppressContentEditableWarning={true} id="header" onInput={event => autoSave(event.target.innerHTML, autoSaveDelay, "heading", noteIndex)}></h1>
 			<p ref={descriptionRef} contentEditable suppressContentEditableWarning={true} eenabled="inlineOnly" id="description" onInput={event => autoSave(event.target.innerHTML, autoSaveDelay, "description")}></p>
 			<div className="options">

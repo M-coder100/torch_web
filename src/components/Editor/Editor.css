@@ -43,6 +43,7 @@
   -webkit-user-select: none;
   user-select: none;
   backdrop-filter: blur(10px);
+  /* box-shadow: -200px 0 1000px rgba(255, 0, 0, 0.535) inset; */
   h1, h2, h3, h4, h5, h6 {
     font-family: 'DM Serif Display', serif;
     text-transform: capitalize;
